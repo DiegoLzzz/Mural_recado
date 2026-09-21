@@ -1,6 +1,3 @@
-<?php
-include "auth/logout.php";
-?>
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -24,6 +21,10 @@ include "auth/logout.php";
       </div>
       <input type="submit" value="Enviar" />
     </form>
+    <p>
+    Ainda não possui uma conta?
+    <a href="auth/cadastro.php">Cadastre-se</a>
+    </p>
 
    
     <script src="js/pg.js"></script>
