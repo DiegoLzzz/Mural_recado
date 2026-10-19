@@ -1,5 +1,9 @@
 <?php
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once __DIR__ . "/../conexao/conexao.php";
 
 $sql = "
@@ -22,58 +26,38 @@ if ($resultado === false) {
     die("Erro ao listar recados: " . $conn->error);
 }
 
-while ($recado = $resultado->fetch_assoc()):
-
+if ($resultado->num_rows === 0):
+    echo '<div class="mensagem-vazia">Ainda não há recados publicados.</div>';
+else:
+    while ($recado = $resultado->fetch_assoc()):
+        $usuarioLogado = $_SESSION["usuario_id"] ?? null;
+        $ehDono = ($usuarioLogado !== null && (int) $usuarioLogado === (int) $recado["usuario_id"]);
 ?>
 
-<div class="recado">
+        <article class="recado-item">
+            <div class="recado-header">
+                <strong><?= htmlspecialchars($recado["nome"]) ?></strong>
+                <span class="recado-data"><?= htmlspecialchars($recado["data_recado"]) ?></span>
+            </div>
 
-    <h3>
-        <?= htmlspecialchars($recado["nome"]) ?>
-    </h3>
+            <p class="recado-texto"><?= nl2br(htmlspecialchars($recado["mensagem"])) ?></p>
 
-    <p>
-        <?= nl2br(htmlspecialchars($recado["mensagem"])) ?>
-    </p>
+            <div class="recado-footer">
+                <form action="recados/curtir.php" method="post" class="form-curtir">
+                    <input type="hidden" name="id" value="<?= (int) $recado["id"] ?>">
+                    <button type="submit" class="btn-curtir">♡ <?= (int) $recado["curtidas"] ?></button>
+                </form>
 
-    <small>
-        <?= htmlspecialchars($recado["data_recado"]) ?>
-    </small>
+                <?php if ($ehDono): ?>
+                    <form action="recados/deletar.php" method="post" class="form-deletar">
+                        <input type="hidden" name="id" value="<?= (int) $recado["id"] ?>">
+                        <button type="submit" class="btn-excluir">Excluir</button>
+                    </form>
+                <?php endif; ?>
+            </div>
+        </article>
 
-    <p>
-        ❤️ <?= $recado["curtidas"] ?> curtidas
-    </p>
-
-    <form action="recados/curtir.php" method="post">
-        <input
-            type="hidden"
-            name="id"
-            value="<?= $recado["id"] ?>"
-        >
-
-        <button type="submit">
-            Curtir
-        </button>
-    </form>
-
-    <?php if (isset($_SESSION["usuario_id"]) && $_SESSION["usuario_id"] == $recado["usuario_id"]): ?>
-
-        <form action="recados/deletar.php" method="post">
-            <input
-                type="hidden"
-                name="id"
-                value="<?= $recado["id"] ?>"
-            >
-
-            <button type="submit">
-                Excluir
-            </button>
-        </form>
-
-    <?php endif; ?>
-
-</div>
-
-<hr>
-
-<?php endwhile; ?>
+<?php
+    endwhile;
+endif;
+?>

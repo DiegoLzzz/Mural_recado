@@ -1,78 +1,238 @@
-*
-{
-	margin: 0; padding: 0;
-	font-family: sans-serif;
-	box-sizing: border-box;
-	outline: none;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-body
-{
-	width: 100%;
-	height: 100vh;
-	background: #16b;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+body {
+    background: #121212;
+    color: #f3f3f3;
 }
 
-form
-{
-	width: 400px;
-	background: #fff;
-	padding: 30px;
-	border-radius: 10px;
-	box-shadow: 0 0 20px rgba(0, 0, 0, .2);
-}
-form .row
-{
-	position: relative;
-	margin: 20px 0;
-}
-form input
-{
-	width: 100%;
-	padding: 15px;
-	border: 1px solid #777;
-	border-radius: 5px;
-	padding-right: 110px;
-}
-form input[type="submit"]
-{
-	background: #16b;
-	color: #fff;
-	font-size: 18px;
-	border: none;
-	cursor: pointer;
-	padding-right: 0px;
-}
-form .row span,
-form .row img
-{
-	position: absolute;
-	top: 50%;
-	right: 10px;
-	color: #555;
-	transform: translateY(-50%);
-}
-form .row img
-{
-	width: 40px;
-	height: 40px;
-	cursor: pointer;
-}
-form h1
-{
-	color: #16b;
-	position: relative;
-}
-form h1:before
-{
-	content: '';
-	position: absolute;
-	width: 40px;
-	height: 4px;
-	bottom: 2px;
-	background: #16b;
+.dashboard-body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
 }
 
+.mural-shell {
+    width: 100%;
+    max-width: 1280px;
+    min-height: 100vh;
+    background: #151515;
+    border-left: 1px solid rgba(255,255,255,0.08);
+    border-right: 1px solid rgba(255,255,255,0.08);
+}
+
+.topbar {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    align-items: center;
+    min-height: 64px;
+    padding: 0 26px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.01);
+}
+
+.topbar-left,
+.topbar-center,
+.topbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.topbar-left {
+    justify-content: flex-start;
+}
+
+.topbar-center {
+    justify-content: center;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: #f3f3f3;
+    gap: 8px;
+}
+
+.welcome-text {
+    font-weight: 400;
+}
+
+.topbar-right {
+    justify-content: flex-end;
+    gap: 14px;
+}
+
+.topbar-label {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.sair-btn {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.menu-btn {
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 26px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.mural-content {
+    padding: 18px 26px 24px;
+}
+
+.form-recado {
+    width: 100%;
+}
+
+.form-recado textarea {
+    width: 100%;
+    min-height: 62px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+    color: #f1f1f1;
+    padding: 18px 16px;
+    font-size: 18px;
+    resize: vertical;
+}
+
+.form-recado textarea::placeholder {
+    color: #a1a1a1;
+}
+
+.form-recado textarea:focus {
+    outline: none;
+    border-color: rgba(255,255,255,0.2);
+}
+
+.composer-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+}
+
+.btn-publicar {
+    background: #f4f4f4;
+    color: #111;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.divider {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    margin: 22px 0 18px;
+}
+
+.recado-item {
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.recado-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.recado-header strong {
+    font-size: 18px;
+    color: #fff;
+    font-weight: 700;
+}
+
+.recado-data {
+    color: #8d8d8d;
+    font-size: 13px;
+}
+
+.recado-texto {
+    font-size: 17px;
+    line-height: 1.6;
+    color: #f3f3f3;
+    white-space: pre-wrap;
+    margin-bottom: 10px;
+}
+
+.recado-footer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.form-curtir,
+.form-deletar {
+    margin: 0;
+}
+
+.btn-curtir {
+    background: transparent;
+    border: none;
+    color: #f5f5f5;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0;
+}
+
+.btn-excluir {
+    background: transparent;
+    border: none;
+    color: #ff6b6b;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0;
+}
+
+.mensagem-vazia {
+    color: #bfbfbf;
+    padding: 18px 0;
+}
+
+@media (max-width: 700px) {
+    .topbar {
+        grid-template-columns: 1fr;
+        padding: 16px 18px;
+        gap: 12px;
+        height: auto;
+    }
+
+    .topbar-left,
+    .topbar-center,
+    .topbar-right {
+        justify-content: flex-start;
+    }
+
+    .topbar-center {
+        display: block;
+        text-align: left;
+    }
+
+    .mural-content {
+        padding: 16px 18px 20px;
+    }
+
+    .btn-publicar {
+        width: 100%;
+    }
+}
